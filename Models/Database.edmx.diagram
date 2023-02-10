@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="224ea6940c764c7f8d1d6de6bc423f58" Name="Diagram1">
+        <EntityTypeShape EntityType="BookManagerModel.Author" Width="1.5" PointX="2.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookManagerModel.Author_Book" Width="1.5" PointX="5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookManagerModel.Book" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookManagerModel.BookStat" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookManagerModel.Category" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookManagerModel.CompletedBook" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookManagerModel.Lending" Width="1.5" PointX="8.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookManagerModel.ReadingStat" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookManagerModel.User" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookManagerModel.WishList" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <AssociationConnector Association="BookManagerModel.FK__Author_Bo__Autho__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="BookManagerModel.FK__Author_Bo__Autho__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="BookManagerModel.FK__Book__BookStatus__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="BookManagerModel.FK__Book__CategoryId__22AA2996" ManuallyRouted="false" />
+        <AssociationConnector Association="BookManagerModel.FK__Book__ReadingSta__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="BookManagerModel.FK__Book__UserId__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="BookManagerModel.FK__Completed__BookI__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="BookManagerModel.FK__Lending__BookId__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="BookManagerModel.FK__Completed__UserI__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="BookManagerModel.FK__Lending__UserId__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="BookManagerModel.FK__WishList__UserId__2A4B4B5E" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
