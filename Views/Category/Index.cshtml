@@ -1,13 +1,8 @@
-﻿@model List<BookManager.Models.Author>
-
+﻿@model List<BookManager.Models.Category>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
-
-
 
 
 <!-- Begin Page Content -->
@@ -16,17 +11,17 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Authors</a>
+            <a href="#">Categories</a>
         </li>
-        <li class="breadcrumb-item active">All Authors</li>
+        <li class="breadcrumb-item active">All Categories</li>
     </ol>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <i class="fas fa-pen-nib"></i>
-            All Author's List
-            <a href="@( Url.Action("Create", "Author"))" class="btn btn-info float-right fas fa-plus-square "> Add New</a>
+            <i class="fas fa-cog"></i>
+            All Categories List
+            <a href="@( Url.Action("Create", "Category"))" class="btn btn-info float-right fas fa-plus-square "> Add New</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -34,11 +29,11 @@
                     <thead>
                         <tr>
                             <th>Sr.No</th>
-                            <th>Author's Name</th>
+                            <th>Category Name</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                   
+
                     <tbody>
                         @foreach (var item in Model)
                         {
@@ -46,10 +41,10 @@
                             <tr>
                                 <td>@(Model.IndexOf(item)+1)</td>
 
-                                <td>@item.AuthorName</td>
+                                <td>@item.CategoryName</td>
                                 <td>
-                                    <a href="@Url.Action("Edit", "Author", new { id = item.AuthorId})" class="btn btn-outline-info">Edit</a>
-                                    <a href="@Url.Action("Delete", "Author", new { id = item.AuthorId})" class="btn btn-outline-danger">Delete</a>
+                                    <a href="@Url.Action("Edit", "Category", new { id = item.CategoryId})" class="btn btn-outline-info">Edit</a>
+                                    <a href="@Url.Action("Delete", "Category", new { id = item.CategoryId})" class="btn btn-outline-danger">Delete</a>
                                 </td>
 
 
@@ -64,5 +59,3 @@
 
 </div>
 <!-- /.container-fluid -->
-
-

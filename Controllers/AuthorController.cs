@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using BookManager.Models;
@@ -17,23 +18,11 @@ namespace BookManager.Controllers
         // GET: Author
         public ActionResult Index()
         {
-            return View(db.Authors.ToList());
+
+            var q = db.Authors.OrderBy(x => x.AuthorName).ToList();
+            return View(q);
         }
 
-        // GET: Author/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Author author = db.Authors.Find(id);
-            if (author == null)
-            {
-                return HttpNotFound();
-            }
-            return View(author);
-        }
 
         // GET: Author/Create
         public ActionResult Create()
@@ -50,12 +39,24 @@ namespace BookManager.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Authors.Add(author);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var ed = db.Authors.Where(x => x.AuthorName == author.AuthorName).SingleOrDefault();
+                if (ed != null)
+                {
+                    TempData["msg"] = "Author Name has already been added! Try another...";
+                    return View();
+                }
+                else
+                {
+
+                    db.Authors.Add(author);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+               
             }
 
             return View(author);
+
         }
 
         // GET: Author/Edit/5
@@ -89,30 +90,23 @@ namespace BookManager.Controllers
             return View(author);
         }
 
-        // GET: Author/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Author author = db.Authors.Find(id);
-            if (author == null)
-            {
-                return HttpNotFound();
-            }
-            return View(author);
-        }
-
+      
         // POST: Author/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        
+        public ActionResult Delete(int?id)
         {
-            Author author = db.Authors.Find(id);
-            db.Authors.Remove(author);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Author author = db.Authors.Find(id);
+                db.Authors.Remove(author);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("Error");
+            }
+            
         }
 
         protected override void Dispose(bool disposing)
