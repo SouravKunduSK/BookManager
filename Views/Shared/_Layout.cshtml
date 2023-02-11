@@ -30,7 +30,8 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
+      
+            <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
@@ -45,7 +46,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li id="home" class="nav-item">
                 <a class="nav-link" href="@( Url.Action("Index", "Home"))">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
@@ -60,47 +61,47 @@
                 Book Managements
             </div>
             <!-- Nav Item - All Books -->
-            <li class="nav-item">
-                <a class="nav-link" href="@( Url.Action("Index", "Home"))">
+            <li id="allbook" class="nav-item">
+                <a class="nav-link" href="@( Url.Action("Index", "Book"))">
                     <i class="fas fa-fw fa-book-open"></i>
                     <span>All Books</span>
                 </a>
             </li>
 
             <!-- Nav Item - Running Books -->
-            <li class="nav-item">
-                <a class="nav-link" href="@( Url.Action("Index", "Home"))">
+            <li id="runbook" class="nav-item">
+                <a class="nav-link" href="@( Url.Action("Index", "RunBook"))">
                     <i class="fas fa-fw fa-book-reader"></i>
                     <span>Running Books</span>
                 </a>
             </li>
             <!-- Nav Item - Completed Books -->
-            <li class="nav-item">
-                <a class="nav-link" href="@( Url.Action("Index", "Home"))">
+            <li id="combook" class="nav-item">
+                <a class="nav-link" href="@( Url.Action("Index", "Book"))">
                     <i class="fas fa-fw fa-check-square"></i>
                     <span>Completed Books</span>
                 </a>
             </li>
 
             <!-- Nav Item - Unread Books -->
-            <li class="nav-item">
-                <a class="nav-link" href="@( Url.Action("Index", "Home"))">
+            <li id="unbook" class="nav-item">
+                <a class="nav-link" href="@( Url.Action("Index", "UnBook"))">
                     <i class="fas fa-fw fa-book"></i>
                     <span>Unread Books</span>
                 </a>
             </li>
 
             <!-- Nav Item - Lended Books -->
-            <li class="nav-item">
-                <a class="nav-link" href="@( Url.Action("Index", "Home"))">
+            <li id="lendbook" class="nav-item">
+                <a class="nav-link" href="@( Url.Action("Index", "LeBook"))">
                     <i class="fas fa-fw fa-book-dead"></i>
                     <span>Lended Books</span>
                 </a>
             </li>
 
             <!-- Nav Item - Wishlisted Books -->
-            <li class="nav-item">
-                <a class="nav-link" href="@( Url.Action("Index", "Home"))">
+            <li id="wishbook" class="nav-item">
+                <a class="nav-link" href="@( Url.Action("Index", "WishBook"))">
                     <i class="fas fa-fw fa-book-medical"></i>
                     <span>Wishlisted Books</span>
                 </a>
@@ -116,45 +117,66 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
-                   aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-sliders-h"></i>
-                    <span>Advanced</span>
-                </a>
-               
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
-                        data-parent="#accordionSidebar">
+
+
+            @if (ViewBag.data == "aut" || ViewBag.data == "cat")
+            {
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
+                       aria-controls="collapsePages">
+                        <i class="fas fa-fw fa-sliders-h"></i>
+                        <span>Advanced</span>
+                    </a>
+                    <div id="collapsePages" class="collapse show" aria-labelledby="headingPages"
+                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Advanced Sections:</h6>
-                          
-                            <a class="collapse-item fas fa-pen-nib" href="@( Url.Action("Index", "Author"))">Authors</a>
-                            
 
-                            <a class="collapse-item fas fa-cog" href="@( Url.Action("Index", "Category"))">Catgories</a>
+                            <a id="aut" class="collapse-item fas fa-pen-nib" href="@( Url.Action("Index", "Author"))">Authors</a>
+
+
+                            <a id="cat" class="collapse-item fas fa-cog" href="@( Url.Action("Index", "Category"))">Catgories</a>
 
 
                         </div>
                     </div>
-                 
-                
-            </li>
+                </li>
+            }
+            else
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
+                       aria-controls="collapsePages">
+                        <i class="fas fa-fw fa-sliders-h"></i>
+                        <span>Advanced</span>
+                    </a>
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
+                         data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Advanced Sections:</h6>
+
+                            <a id="aut" class="collapse-item fas fa-pen-nib" href="@( Url.Action("Index", "Author"))">Authors</a>
 
 
+                            <a id="cat" class="collapse-item fas fa-cog" href="@( Url.Action("Index", "Category"))">Catgories</a>
 
 
+                        </div>
+                    </div>
+                    </li>
+                    }
 
+                <!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+                <!-- Sidebar Toggler (Sidebar) -->
+                <div class="text-center d-none d-md-inline">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
 
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
-        <!-- End of Sidebar -->
+            </ul>
+            <!-- End of Sidebar -->
+       
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -445,7 +467,14 @@
     <script src="~/Style/js/demo/chart-pie-demo.js"></script>
     <script src="~/Style/js/demo/datatables-demo.js"></script>
 
-
+    <script>
+         $(document).ready(function () {
+        if ('@ViewBag.data' != null)
+        {
+           $('#' + '@ViewBag.data').addClass('active');
+        }
+    });
+    </script>
 
 </body>
 </html>

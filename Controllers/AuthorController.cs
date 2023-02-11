@@ -16,8 +16,11 @@ namespace BookManager.Controllers
         private BookManagerEntities db = new BookManagerEntities();
 
         // GET: Author
+
+        
         public ActionResult Index()
         {
+            ViewBag.data = "aut";
 
             var q = db.Authors.OrderBy(x => x.AuthorName).ToList();
             return View(q);
@@ -27,6 +30,7 @@ namespace BookManager.Controllers
         // GET: Author/Create
         public ActionResult Create()
         {
+            ViewBag.data = "aut";
             return View();
         }
 
@@ -37,6 +41,7 @@ namespace BookManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "AuthorId,AuthorName")] Author author)
         {
+            ViewBag.data = "aut";
             if (ModelState.IsValid)
             {
                 var ed = db.Authors.Where(x => x.AuthorName == author.AuthorName).SingleOrDefault();
@@ -62,6 +67,7 @@ namespace BookManager.Controllers
         // GET: Author/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.data = "aut";
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -81,6 +87,7 @@ namespace BookManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "AuthorId,AuthorName")] Author author)
         {
+            ViewBag.data = "aut";
             if (ModelState.IsValid)
             {
                 db.Entry(author).State = EntityState.Modified;
@@ -95,6 +102,7 @@ namespace BookManager.Controllers
         
         public ActionResult Delete(int?id)
         {
+            ViewBag.data = "aut";
             try
             {
                 Author author = db.Authors.Find(id);

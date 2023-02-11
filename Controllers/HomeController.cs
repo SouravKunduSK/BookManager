@@ -11,6 +11,7 @@ namespace BookManager.Controllers
         
         public ActionResult Index()
         {
+            ViewBag.data = "home";
             return View();
         }
 

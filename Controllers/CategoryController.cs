@@ -14,13 +14,14 @@ namespace BookManager.Controllers
         // GET: Category
         public ActionResult Index()
         {
-
+            ViewBag.data = "cat";
             var q = db.Categories.OrderBy(x => x.CategoryName).ToList();
             return View(q);
         }
 
         public ActionResult Create()
         {
+            ViewBag.data = "cat";
             return View();
         }
 
@@ -28,6 +29,7 @@ namespace BookManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Category c)
         {
+            ViewBag.data = "cat";
             try
             {
 
@@ -59,7 +61,7 @@ namespace BookManager.Controllers
         public ActionResult Edit(int? id)
         {
 
-
+            ViewBag.data = "cat";
             var query = db.Categories.Where(m => m.CategoryId == id).ToList().FirstOrDefault();
             return View(query);
 
@@ -69,6 +71,7 @@ namespace BookManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Category c)
         {
+            ViewBag.data = "cat";
             try
             {
 
@@ -86,6 +89,7 @@ namespace BookManager.Controllers
 
         public ActionResult Delete(int? id)
         {
+            ViewBag.data = "cat";
             var query = db.Categories.SingleOrDefault(m => m.CategoryId == id);
             db.Categories.Remove(query);
             db.SaveChanges();
