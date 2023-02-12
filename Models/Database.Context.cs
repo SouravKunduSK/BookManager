@@ -26,7 +26,6 @@ namespace BookManager.Models
         }
     
         public virtual DbSet<Author> Authors { get; set; }
-        public virtual DbSet<Author_Book> Author_Book { get; set; }
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<BookStat> BookStats { get; set; }
         public virtual DbSet<Category> Categories { get; set; }

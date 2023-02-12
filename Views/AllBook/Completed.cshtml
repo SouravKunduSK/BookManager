@@ -1,7 +1,7 @@
 ﻿@model List<BookManager.Models.Book>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Completed";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!-- Begin Page Content -->
@@ -20,7 +20,7 @@
         <div class="card-header py-3">
             <i class="fas fa-book-open"></i>
             All Books List
-            <a href="@( Url.Action("Create", "AllBook"))" class="btn btn-info float-right fas fa-plus-square "> Add New</a>
+            @*<a href="@( Url.Action("Create", "AllBook"))" class="btn btn-info float-right fas fa-plus-square "> Add New</a>*@
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -31,10 +31,8 @@
                             <th>Photo</th>
                             <th>Book Name</th>
                             <th>Author Name</th>
-                            <th>Category Name</th>
-                            <th>Book Status</th>
-                            <th>Buying Date</th>
-                            <th>Reading Status</th>
+                            <th>Category</th>
+                           
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -58,19 +56,14 @@
                                 <td>@item.BookName</td>
                                 <td>@item.Author.AuthorName</td>
                                 <td>@item.Category.CategoryName</td>
-                                <td>@item.BookStat.Status</td>
+                                @*<td>@item.BookStat.Status</td>
                                 <td>@item.BuyingDate.GetValueOrDefault().Date.ToShortDateString()</td>
 
-                                <td>@item.ReadingStat.ReadingStatus</td>
+                                <td>@item.ReadingStat.ReadingStatus</td>*@
 
                                 <td>
 
-                                    <a href="@Url.Action("Edit", "AllBook", new { id = item.BookId})" class="btn btn-outline-success fa fa-edit "></a>
-
-
-                                    <a href="@Url.Action("Delete", "AllBook", new { id = item.BookId})" class="btn btn-outline-danger  fas fa-trash-alt"></a>
-
-                                    <a href="@Url.Action("Edit", "AllBook", new { id = item.BookId})" class="btn btn-outline-warning fa fa-user"></a>
+                                    <a href="@Url.Action("Detail", "AllBook", new { id = item.BookId})" class="btn btn-outline-success ">Detail</a>
                                 </td>
 
 
@@ -85,4 +78,3 @@
 
 </div>
 <!-- /.container-fluid -->
-

@@ -41,5 +41,6 @@ namespace BookManager.Models
         public virtual ICollection<CompletedBook> CompletedBooks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lending> Lendings { get; set; }
+        public virtual Author Author { get; set; }
     }
 }

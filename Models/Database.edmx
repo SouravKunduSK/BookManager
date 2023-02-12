@@ -4,21 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BookManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BookManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Author">
           <Key>
             <PropertyRef Name="AuthorId" />
           </Key>
           <Property Name="AuthorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AuthorName" Type="nvarchar" MaxLength="255" />
-        </EntityType>
-        <EntityType Name="Author_Book">
-          <Key>
-            <PropertyRef Name="Author_AuthorId" />
-            <PropertyRef Name="Book_AuthorId" />
-          </Key>
-          <Property Name="Author_AuthorId" Type="int" Nullable="false" />
-          <Property Name="Book_AuthorId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Book">
           <Key>
@@ -113,30 +105,6 @@
           <Property Name="Photo" Type="nvarchar(max)" />
           <Property Name="Price" Type="float" />
         </EntityType>
-        <Association Name="FK__Author_Bo__Autho__25869641">
-          <End Role="Author" Type="Self.Author" Multiplicity="1" />
-          <End Role="Author_Book" Type="Self.Author_Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Author">
-              <PropertyRef Name="AuthorId" />
-            </Principal>
-            <Dependent Role="Author_Book">
-              <PropertyRef Name="Author_AuthorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Author_Bo__Autho__2F10007B">
-          <End Role="Author" Type="Self.Author" Multiplicity="1" />
-          <End Role="Author_Book" Type="Self.Author_Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Author">
-              <PropertyRef Name="AuthorId" />
-            </Principal>
-            <Dependent Role="Author_Book">
-              <PropertyRef Name="Author_AuthorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Book__BookStatus__29572725">
           <End Role="BookStat" Type="Self.BookStat" Multiplicity="0..1" />
           <End Role="Book" Type="Self.Book" Multiplicity="*" />
@@ -245,9 +213,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Book_AuthorId">
+          <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="AuthorId" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BookManagerModelStoreContainer">
           <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Author_Book" EntityType="Self.Author_Book" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BookStat" EntityType="Self.BookStat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -256,14 +235,6 @@
           <EntitySet Name="ReadingStat" EntityType="Self.ReadingStat" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WishList" EntityType="Self.WishList" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Author_Bo__Autho__25869641" Association="Self.FK__Author_Bo__Autho__25869641">
-            <End Role="Author" EntitySet="Author" />
-            <End Role="Author_Book" EntitySet="Author_Book" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Author_Bo__Autho__2F10007B" Association="Self.FK__Author_Bo__Autho__2F10007B">
-            <End Role="Author" EntitySet="Author" />
-            <End Role="Author_Book" EntitySet="Author_Book" />
-          </AssociationSet>
           <AssociationSet Name="FK__Book__BookStatus__29572725" Association="Self.FK__Book__BookStatus__29572725">
             <End Role="BookStat" EntitySet="BookStat" />
             <End Role="Book" EntitySet="Book" />
@@ -300,9 +271,12 @@
             <End Role="User" EntitySet="User" />
             <End Role="WishList" EntitySet="WishList" />
           </AssociationSet>
+          <AssociationSet Name="FK_Book_AuthorId" Association="Self.FK_Book_AuthorId">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BookManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -312,18 +286,7 @@
           </Key>
           <Property Name="AuthorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AuthorName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Author_Book" Relationship="Self.FK__Author_Bo__Autho__25869641" FromRole="Author" ToRole="Author_Book" />
-          <NavigationProperty Name="Author_Book1" Relationship="Self.FK__Author_Bo__Autho__2F10007B" FromRole="Author" ToRole="Author_Book" />
-        </EntityType>
-        <EntityType Name="Author_Book">
-          <Key>
-            <PropertyRef Name="Author_AuthorId" />
-            <PropertyRef Name="Book_AuthorId" />
-          </Key>
-          <Property Name="Author_AuthorId" Type="Int32" Nullable="false" />
-          <Property Name="Book_AuthorId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Author" Relationship="Self.FK__Author_Bo__Autho__25869641" FromRole="Author_Book" ToRole="Author" />
-          <NavigationProperty Name="Author1" Relationship="Self.FK__Author_Bo__Autho__2F10007B" FromRole="Author_Book" ToRole="Author" />
+          <NavigationProperty Name="Books" Relationship="BookManagerModel.FK_Book_AuthorId" FromRole="Author" ToRole="Book" />
         </EntityType>
         <EntityType Name="Book">
           <Key>
@@ -346,6 +309,7 @@
           <NavigationProperty Name="User" Relationship="Self.FK__Book__UserId__276EDEB3" FromRole="Book" ToRole="User" />
           <NavigationProperty Name="CompletedBooks" Relationship="Self.FK__Completed__BookI__2C3393D0" FromRole="Book" ToRole="CompletedBook" />
           <NavigationProperty Name="Lendings" Relationship="Self.FK__Lending__BookId__2D27B809" FromRole="Book" ToRole="Lending" />
+          <NavigationProperty Name="Author" Relationship="BookManagerModel.FK_Book_AuthorId" FromRole="Book" ToRole="Author" />
         </EntityType>
         <EntityType Name="BookStat">
           <Key>
@@ -436,30 +400,6 @@
           <Property Name="Price" Type="Double" />
           <NavigationProperty Name="User" Relationship="Self.FK__WishList__UserId__2A4B4B5E" FromRole="WishList" ToRole="User" />
         </EntityType>
-        <Association Name="FK__Author_Bo__Autho__25869641">
-          <End Role="Author" Type="Self.Author" Multiplicity="1" />
-          <End Role="Author_Book" Type="Self.Author_Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Author">
-              <PropertyRef Name="AuthorId" />
-            </Principal>
-            <Dependent Role="Author_Book">
-              <PropertyRef Name="Author_AuthorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Author_Bo__Autho__2F10007B">
-          <End Role="Author" Type="Self.Author" Multiplicity="1" />
-          <End Role="Author_Book" Type="Self.Author_Book" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Author">
-              <PropertyRef Name="AuthorId" />
-            </Principal>
-            <Dependent Role="Author_Book">
-              <PropertyRef Name="Author_AuthorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Book__BookStatus__29572725">
           <End Role="BookStat" Type="Self.BookStat" Multiplicity="0..1" />
           <End Role="Book" Type="Self.Book" Multiplicity="*" />
@@ -570,7 +510,6 @@
         </Association>
         <EntityContainer Name="BookManagerEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Authors" EntityType="Self.Author" />
-          <EntitySet Name="Author_Book" EntityType="Self.Author_Book" />
           <EntitySet Name="Books" EntityType="Self.Book" />
           <EntitySet Name="BookStats" EntityType="Self.BookStat" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
@@ -579,14 +518,6 @@
           <EntitySet Name="ReadingStats" EntityType="Self.ReadingStat" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="WishLists" EntityType="Self.WishList" />
-          <AssociationSet Name="FK__Author_Bo__Autho__25869641" Association="Self.FK__Author_Bo__Autho__25869641">
-            <End Role="Author" EntitySet="Authors" />
-            <End Role="Author_Book" EntitySet="Author_Book" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Author_Bo__Autho__2F10007B" Association="Self.FK__Author_Bo__Autho__2F10007B">
-            <End Role="Author" EntitySet="Authors" />
-            <End Role="Author_Book" EntitySet="Author_Book" />
-          </AssociationSet>
           <AssociationSet Name="FK__Book__BookStatus__29572725" Association="Self.FK__Book__BookStatus__29572725">
             <End Role="BookStat" EntitySet="BookStats" />
             <End Role="Book" EntitySet="Books" />
@@ -623,7 +554,23 @@
             <End Role="User" EntitySet="Users" />
             <End Role="WishList" EntitySet="WishLists" />
           </AssociationSet>
+          <AssociationSet Name="FK_Book_AuthorId" Association="BookManagerModel.FK_Book_AuthorId">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Book" EntitySet="Books" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Book_AuthorId">
+          <End Type="BookManagerModel.Author" Role="Author" Multiplicity="0..1" />
+          <End Type="BookManagerModel.Book" Role="Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="AuthorId" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -635,14 +582,6 @@
               <MappingFragment StoreEntitySet="Author">
                 <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
                 <ScalarProperty Name="AuthorName" ColumnName="AuthorName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Author_Book">
-            <EntityTypeMapping TypeName="BookManagerModel.Author_Book">
-              <MappingFragment StoreEntitySet="Author_Book">
-                <ScalarProperty Name="Author_AuthorId" ColumnName="Author_AuthorId" />
-                <ScalarProperty Name="Book_AuthorId" ColumnName="Book_AuthorId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -20,6 +20,8 @@
 
     <!-- Custom styles for this page -->
     <link href="~/Style/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!---Searchable Dropdown--->
+    <link href="~/Scripts/bootstrap-chosen.css" rel="stylesheet" />
 
 
 </head>
@@ -30,8 +32,8 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-      
-            <!-- Sidebar -->
+
+        <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
@@ -77,7 +79,7 @@
             </li>
             <!-- Nav Item - Completed Books -->
             <li id="combook" class="nav-item">
-                <a class="nav-link" href="@( Url.Action("Index", "Book"))">
+                <a class="nav-link" href="@( Url.Action("Completed", "AllBook"))">
                     <i class="fas fa-fw fa-check-square"></i>
                     <span>Completed Books</span>
                 </a>
@@ -163,20 +165,19 @@
 
                         </div>
                     </div>
-                    </li>
-                    }
+                </li>
+            }
 
-                <!-- Divider -->
-                <hr class="sidebar-divider d-none d-md-block">
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
 
-                <!-- Sidebar Toggler (Sidebar) -->
-                <div class="text-center d-none d-md-inline">
-                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
-                </div>
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
 
-            </ul>
-            <!-- End of Sidebar -->
-       
+        </ul>
+        <!-- End of Sidebar -->
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
@@ -475,6 +476,11 @@
         }
     });
     </script>
+
+
+    @RenderSection("scripts", required: false)
+
+
 
 </body>
 </html>

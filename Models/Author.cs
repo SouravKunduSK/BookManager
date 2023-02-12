@@ -17,16 +17,13 @@ namespace BookManager.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Author()
         {
-            this.Author_Book = new HashSet<Author_Book>();
-            this.Author_Book1 = new HashSet<Author_Book>();
+            this.Books = new HashSet<Book>();
         }
     
         public int AuthorId { get; set; }
         public string AuthorName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Author_Book> Author_Book { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Author_Book> Author_Book1 { get; set; }
+        public virtual ICollection<Book> Books { get; set; }
     }
 }
