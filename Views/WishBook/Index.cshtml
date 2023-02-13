@@ -1,0 +1,82 @@
+﻿@model List<BookManager.Models.WishList>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">All Wishlisted Books</li>
+    </ol>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <i class="fas fa-book-open"></i>
+            All Wishlisted Books List
+            <a href="@( Url.Action("Create", "WishBook"))" class="btn btn-info float-right fas fa-plus-square"> Add New</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Sr.No</th>
+                            <th>Photo</th>
+                            <th>Book Name</th>
+                            <th>Author Name</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td>@(Model.IndexOf(item)+1)</td>
+
+                                @if (item.Photo != null)
+                                {
+                                    <td><img src="@Url.Content(item.Photo)" style="width:100px; height:67px;" /></td>
+                                }
+                                else
+                                {
+                                    <td><img src="~/Uploads/NoBook.png" style="width:100px; height:67px;" /></td>
+                                }
+
+                                <td>@item.BookName</td>
+                                <td>@item.AuthorName</td>
+                                
+
+                                <td>@item.Price</td>
+
+                                <td>
+
+                                    <a href="@Url.Action("Edit", "WishBook", new { id = item.WishListId})" class="btn btn-outline-success fa fa-edit "></a>
+
+
+                                    <a href="@Url.Action("Delete", "WishBook", new { id = item.WishListId})" class="btn btn-outline-danger  fas fa-trash-alt"></a>
+
+                                   
+                                </td>
+
+
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->

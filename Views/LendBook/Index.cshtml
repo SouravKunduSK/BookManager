@@ -1,0 +1,93 @@
+﻿@model List<BookManager.Models.Lending>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">All Lending Books</li>
+    </ol>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <i class="fas fa-book-open"></i>
+            All Wishlisted Books List
+            <a href="@( Url.Action("Create", "LendBook"))" class="btn btn-info float-right fas fa-plus-square"> Add New</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Sr.No</th>
+                            <th>Photo</th>
+                            <th>Book Name</th>
+                            <th>Author Name</th>
+                            <th>Borrower Name</th>
+                            <th>Borrowing Date</th>
+                            <th>Return Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td>@(Model.IndexOf(item)+1)</td>
+
+                                @if (item.Book.Photo != null)
+                                {
+                                    <td><img src="@Url.Content(item.Book.Photo)" style="width:100px; height:67px;" /></td>
+                                }
+                                else
+                                {
+                                    <td><img src="~/Uploads/NoBook.png" style="width:100px; height:67px;" /></td>
+                                }
+
+                                <td>@item.Book.BookName</td>
+                                <td>@item.Book.Author.AuthorName</td>
+
+
+                                <td>@item.BorrowerName</td>
+                                <td>@item.LendDate.GetValueOrDefault().ToShortDateString()</td>
+                                @if (@item.ReturnDate != null)
+                                {
+                                    <td>@item.ReturnDate.GetValueOrDefault().ToShortDateString()</td>
+                                }
+                                else
+                                {
+                                    <td>Not Return Yet!</td>
+                                }
+
+                                <td>
+
+                                    <a href="@Url.Action("Edit", "LendBook", new { id = item.LendId})" class="btn btn-outline-success fa fa-edit "></a>
+
+
+                                    <a href="@Url.Action("Delete", "LendBook", new { id = item.LendId})" class="btn btn-outline-danger  fas fa-trash-alt"></a>
+
+
+                                </td>
+
+
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->

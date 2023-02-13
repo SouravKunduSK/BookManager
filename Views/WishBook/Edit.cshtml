@@ -1,0 +1,125 @@
+﻿@model BookManager.Models.WishList
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Wish Listed Books</a>
+        </li>
+        @*<li class="breadcrumb-item ">All Authors</li>*@
+        <li class="breadcrumb-item active">Edit Book Details</li>
+
+
+    </ol>
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-book-open"></i>
+            Edit Book Details
+
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Edit", "WishBook", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.HiddenFor(m => m.WishListId)
+                @Html.HiddenFor(m => m.UserId)
+
+
+                <h3 style="color:red;">@TempData["msg"]</h3><div class="col-md-6">
+
+
+
+                    <div class="form-group">
+                        @*@Html.LabelFor(model => model.ProductImage, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                        <div class="col-md-10">
+                            <div class="row">
+                                @if (Model.Photo != null)
+                                {
+                                    <div class="col-6">
+                                        <h5>Book's Current Image</h5>
+                                        <img src="@Url.Content(Model.Photo)" style="height:200px" width="150">
+                                    </div>
+                                }
+
+                                <div class="col-6">
+                                    <h5>Book's New Image:</h5>
+                                    <img src="" id="output" style="height:200px" width="150" altsrc="No Image" />
+                                </div>
+                                <div class="col-10">
+                                    <h5>Choose New Image</h5>
+                                    <input type="file" name="file" onchange="document.
+        getElementById('output').src = window.URL.createObjectURL(this.files[0])" />
+                                    @Html.ValidationMessageFor(model => model.Photo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @*@Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                        <div class="col-md-10">
+                            <h6>Book Name</h6>
+                            @Html.EditorFor(model => model.BookName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.BookName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @*@Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                        <div class="col-md-10">
+                            <h6>Author Name</h6>
+                            @Html.EditorFor(model => model.AuthorName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.AuthorName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @*@Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                        <div class="col-md-10">
+                            <h6>Price</h6>
+                            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @*@Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                        <div class="col-md-10">
+
+                            <a onclick="window.history.back();" class="btn btn-outline-danger">Cancel</a>
+                            <input type="submit" class="btn btn-outline-primary" value="Update" />
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+        </div>
+    </div>
+</div>
+

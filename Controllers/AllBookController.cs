@@ -181,7 +181,7 @@ namespace BookManager.Controllers
                 {
                     b.StartDate = DateTime.Today;
                 }
-
+                db.Configuration.ValidateOnSaveEnabled = false;
                 db.Entry(b).State = EntityState.Modified;
 
                 db.SaveChanges();
