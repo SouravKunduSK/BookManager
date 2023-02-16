@@ -170,6 +170,18 @@
     <script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
     <script src="~/Scripts/chosen.jquery.min.js"></script>
     <script type="text/javascript">
+        $(document).ready(function () {
+            $(".datepicker").datepicker({
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true,
+                /*yearRange: "-10:+10",*/
+
+                minDate: new Date(2020, 00, 01)
+            });
+        });
+
+
         $(function () {
             $("#aid").chosen({
                 disable_search_threshold: 2

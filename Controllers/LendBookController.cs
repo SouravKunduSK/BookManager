@@ -62,7 +62,10 @@ namespace BookManager.Controllers
         public ActionResult Edit(int? id)
         {
             ViewBag.data = "lendbook";
+            List<Book> BookList = db.Books.ToList();
+            ViewBag.BookList = new SelectList(BookList, "BookId", "BookName");
             var query = db.Lendings.Find(id);
+            Session["bookId"] = query.BookId;
 
             if (query == null)
             {
@@ -79,21 +82,50 @@ namespace BookManager.Controllers
         public ActionResult Edit(Lending l)
         {
             ViewBag.data = "lendbook";
-            
+            List<Book> BookList = db.Books.ToList();
+            ViewBag.BookList = new SelectList(BookList, "BookId", "BookName");
+
             try
             {
-
-                if((Convert.ToBoolean(db.Lendings.Where(x=>x.BookId==l.BookId))&&l.Book.BookStatusId==2)) 
+                int bookId = (int)Session["bookId"];
+                var book = db.Books.Find(bookId);
+                var b = db.Books.Where(x => x.BookId == l.BookId).FirstOrDefault();
+                if (l.BookId==bookId && l.ReturnDate==null && book.BookStatusId == 2) 
                 {
-                    db.Configuration.ValidateOnSaveEnabled = false;
-                    db.Books.Find(l.BookId).BookStatusId = 1;
+                    db.Configuration.ValidateOnSaveEnabled = false; 
                     db.Entry(l).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index", "AllBook");
+                    return RedirectToAction("Index", "LendBook");
                 }
+                else if (l.BookId == bookId && l.ReturnDate != null && book.BookStatusId == 2)
+                {
+                    db.Configuration.ValidateOnSaveEnabled = false;
+                    book.BookStatusId = 1;
+                    db.Entry(book).State=EntityState.Modified;
+                    db.Entry(l).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "LendBook");
+                }
+
+                else if(l.BookId != bookId && (b.BookStatusId) ==1)
+                {
+                    db.Configuration.ValidateOnSaveEnabled = false;
+                    book.BookStatusId = 1;
+                    b.BookStatusId = 2;
+                    db.Entry(b).State = EntityState.Modified;
+                    db.Entry(book).State = EntityState.Modified;
+                 
+                    db.Entry(l).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "LendBook");
+                }
+
                 else
                 {
-                    //This section should be updated
+                    db.Configuration.ValidateOnSaveEnabled = false;
+                    db.Entry(l).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "LendBook");
                 }
                
 
@@ -105,9 +137,9 @@ namespace BookManager.Controllers
             {
                 TempData["msg"] = "Detail isn't updated!" + ex;
 
-                return RedirectToAction("Edit", "WishBook");
+                return RedirectToAction("Edit", "LendBook");
             }
-            return View();
+          
         }
 
 

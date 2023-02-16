@@ -1,0 +1,141 @@
+﻿@model BookManager.Models.Lending
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-chosen.css" rel="stylesheet" />
+<div class="container-fluid">
+    <!-- Breadcrumbs-->
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Wish Listed Books</a>
+        </li>
+        @*<li class="breadcrumb-item ">All Authors</li>*@
+        <li class="breadcrumb-item active">Edit Book Details</li>
+
+
+    </ol>
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-book-open"></i>
+            Edit Book Details
+
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Edit", "LendBook", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.HiddenFor(m => m.LendId)
+                @Html.HiddenFor(m => m.UserId)
+
+
+                <h3 style="color:red;">@TempData["msg"]</h3>
+
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @if (ViewBag.BookList != null)
+                        {
+                            <div class="col-md-10">
+                                <h6>Choose Book<span style="color: orangered">*</span></h6>
+                                @Html.DropDownListFor(model => model.BookId, ViewBag.BookList as SelectList, "-- Select Book ---", new { @class = "form-control", @id = "bid" })
+                            </div>
+                        }
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @*@Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                        <div class="col-md-10">
+                            <h6>Borrower Name<span style="color: orangered">*</span></h6>
+                            @Html.EditorFor(model => model.BorrowerName, new { htmlAttributes = new { @class = "form-control", required = "required", autofocus = "autofocus" } })
+                            @Html.ValidationMessageFor(model => model.BorrowerName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                        <div class="col-md-10">
+                            <h6>Lend Date</h6>
+                            @Html.EditorFor(model => model.LendDate, new { htmlAttributes = new { @class = "form-control datepicker", @autocomplete = "off" } })
+                            <i style="margin-inline-end:8px; margin-top:-28px;" class="fas fa-calendar-alt float-right"></i>
+                            @Html.ValidationMessageFor(model => model.LendDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                        <div class="col-md-10">
+                            <h6>Return Date</h6>
+                            @Html.EditorFor(model => model.ReturnDate, new { htmlAttributes = new { @class = "form-control datepicker", @autocomplete = "off" } })
+                            <i style="margin-inline-end:8px; margin-top:-28px;" class="fas fa-calendar-alt float-right"></i>
+                            @Html.ValidationMessageFor(model => model.ReturnDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @*@Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                        <div class="col-md-10">
+
+                            <a onclick="window.history.back();" class="btn btn-outline-danger">Cancel</a>
+                            <input type="submit" class="btn btn-outline-primary" value="Update" />
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+
+
+
+        </div>
+
+    </div>
+    
+</div>
+
+        @section scripts{
+            <script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $(".datepicker").datepicker({
+                        dateFormat: "dd-mm-yy",
+                        changeMonth: true,
+                        changeYear: true,
+                        /*yearRange: "-10:+10",*/
+
+                        minDate: new Date(2020, 00, 01)
+                    });
+                });
+            </script>
+            <script src="~/Scripts/chosen.jquery.min.js"></script>
+            <script type="text/javascript">
+                $(function () {
+                    $("#bid").chosen({
+                        disable_search_threshold: 2
+                    });
+
+                });
+            </script>
+
+        }
+

@@ -125,7 +125,7 @@ namespace BookManager.Controllers
 
         // POST: AllBook/Edit/5
         [HttpPost]
-        public ActionResult Edit([Bind(Exclude = "StartDate, EndDate")] Book b, HttpPostedFileBase file)
+        public ActionResult Edit(Book b, HttpPostedFileBase file)
         {
             ViewBag.data = "allbook";
 
@@ -181,9 +181,9 @@ namespace BookManager.Controllers
                 {
                     b.StartDate = DateTime.Today;
                 }
-                db.Configuration.ValidateOnSaveEnabled = false;
+                
                 db.Entry(b).State = EntityState.Modified;
-
+                db.Configuration.ValidateOnSaveEnabled = false;
                 db.SaveChanges();
                 return RedirectToAction("Index", "AllBook");
 
@@ -213,21 +213,9 @@ namespace BookManager.Controllers
                 return RedirectToAction("Index", "Error");
             }
         }
-        public ActionResult Completed()
-        {
-            ViewBag.data = "combook";
-            //var ui = (int)Session["uid"];
-            var q = db.Books.Where(x => x.ReadingStat.ReadingStatus == "Completed" /*&& x.UserId == ui*/).ToList();
-            return View(q);
-        }
+      
 
-        public ActionResult Detail(int?id)
-        {
-            ViewBag.data = "combook";
-            //var ui = (int)Session["uid"];
-            var q = db.Books.Find(id);
-            return View(q);
-        }
+ 
 
     }
 }

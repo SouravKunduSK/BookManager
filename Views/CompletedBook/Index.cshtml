@@ -1,0 +1,79 @@
+﻿@model List<BookManager.Models.CompletedBook>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">All Books</li>
+    </ol>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <i class="fas fa-book-open"></i>
+            All Books List
+            @*<a href="@( Url.Action("Create", "AllBook"))" class="btn btn-info float-right fas fa-plus-square "> Add New</a>*@
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Sr.No</th>
+                            <th>Photo</th>
+                            <th>Book Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Reading Status</th>
+
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td>@(Model.IndexOf(item)+1)</td>
+
+                                @if (item.Photo != null)
+                                {
+                                    <td><img src="@Url.Content(item.Book.Photo)" style="width:100px; height:67px;" /></td>
+                                }
+                                else
+                                {
+                                    <td><img src="~/Uploads/NoBook.png" style="width:100px; height:67px;" /></td>
+                                }
+
+                                <td>@item.Book.BookName</td>
+                                <td>@item.Book.StartDate.GetValueOrDefault().Date.ToShortDateString()</td>
+                                <td>@item.Book.EndDate.GetValueOrDefault().Date.ToShortDateString()</td>
+                                <td>@item.Book.ReadingStat.ReadingStatus</td>
+                              
+
+                                <td>
+
+                                    <a href="@Url.Action("Detail", "CompletedBook", new { id = item.CompletedBookId})" class="btn btn-outline-success ">Detail</a>
+                                </td>
+
+
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container-fluid -->

@@ -143,6 +143,7 @@
     <Compile Include="Controllers\AllBookController.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CompletedBookController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LendBookController.cs" />
@@ -2189,10 +2190,14 @@
     <Content Include="Views\WishBook\Edit.cshtml" />
     <Content Include="Views\LendBook\Create.cshtml" />
     <Content Include="Views\LendBook\Index.cshtml" />
+    <Content Include="Views\LendBook\Edit.cshtml" />
+    <Content Include="Views\RunningBook\Index.cshtml" />
+    <Content Include="Views\RunningBook\Create.cshtml" />
+    <Content Include="Views\RunningBook\Edit.cshtml" />
+    <Content Include="Views\CompletedBook\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\RunningBook\" />
     <Folder Include="Views\UnReadBook\" />
   </ItemGroup>
   <ItemGroup>
